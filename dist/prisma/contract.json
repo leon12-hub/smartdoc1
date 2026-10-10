@@ -1,0 +1,3663 @@
+{
+    "schemaVersion": "1",
+    "targetFamily": "sql",
+    "target": "postgres",
+    "profileHash": "3916f444a8a17ad749191acf9e08dad97d1a327b88c2f1d45d12f240296aa8b2",
+    "roots": {
+        "AdminGoogleDriveConnection": {
+            "model": "AdminGoogleDriveConnection",
+            "namespace": "public"
+        },
+        "AdminGoogleLoginState": {
+            "model": "AdminGoogleLoginState",
+            "namespace": "public"
+        },
+        "AdminGoogleOAuthState": {
+            "model": "AdminGoogleOAuthState",
+            "namespace": "public"
+        },
+        "AdminLog": {
+            "model": "AdminLog",
+            "namespace": "public"
+        },
+        "AdminSession": {
+            "model": "AdminSession",
+            "namespace": "public"
+        },
+        "AnonymousSession": {
+            "model": "AnonymousSession",
+            "namespace": "public"
+        },
+        "Document": {
+            "model": "Document",
+            "namespace": "public"
+        },
+        "Folder": {
+            "model": "Folder",
+            "namespace": "public"
+        },
+        "GoogleDriveConnection": {
+            "model": "GoogleDriveConnection",
+            "namespace": "public"
+        },
+        "GoogleOAuthState": {
+            "model": "GoogleOAuthState",
+            "namespace": "public"
+        },
+        "Notification": {
+            "model": "Notification",
+            "namespace": "public"
+        },
+        "User": {
+            "model": "User",
+            "namespace": "public"
+        }
+    },
+    "domain": {
+        "namespaces": {
+            "public": {
+                "enum": {
+                    "AdminLoginChannel": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "WEB",
+                                "value": "WEB"
+                            },
+                            {
+                                "name": "MOBILE",
+                                "value": "MOBILE"
+                            }
+                        ]
+                    },
+                    "DocumentAnalysisStatus": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "NOT_REQUESTED",
+                                "value": "NOT_REQUESTED"
+                            },
+                            {
+                                "name": "PENDING",
+                                "value": "PENDING"
+                            },
+                            {
+                                "name": "PROCESSING",
+                                "value": "PROCESSING"
+                            },
+                            {
+                                "name": "COMPLETE",
+                                "value": "COMPLETE"
+                            },
+                            {
+                                "name": "FAILED",
+                                "value": "FAILED"
+                            }
+                        ]
+                    },
+                    "DocumentSource": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "UPLOAD",
+                                "value": "UPLOAD"
+                            },
+                            {
+                                "name": "SCAN",
+                                "value": "SCAN"
+                            },
+                            {
+                                "name": "DRIVE",
+                                "value": "DRIVE"
+                            }
+                        ]
+                    },
+                    "DocumentStatus": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "UPLOADING",
+                                "value": "UPLOADING"
+                            },
+                            {
+                                "name": "READY",
+                                "value": "READY"
+                            },
+                            {
+                                "name": "FAILED",
+                                "value": "FAILED"
+                            },
+                            {
+                                "name": "DELETED",
+                                "value": "DELETED"
+                            }
+                        ]
+                    },
+                    "DocumentStorageProvider": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "LOCAL",
+                                "value": "LOCAL"
+                            },
+                            {
+                                "name": "GOOGLE_DRIVE",
+                                "value": "GOOGLE_DRIVE"
+                            }
+                        ]
+                    },
+                    "DriveConnectionStatus": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "CONNECTED",
+                                "value": "CONNECTED"
+                            },
+                            {
+                                "name": "REAUTH_REQUIRED",
+                                "value": "REAUTH_REQUIRED"
+                            },
+                            {
+                                "name": "DISCONNECTED",
+                                "value": "DISCONNECTED"
+                            }
+                        ]
+                    },
+                    "DriveSyncStatus": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "LOCAL_ONLY",
+                                "value": "LOCAL_ONLY"
+                            },
+                            {
+                                "name": "UPLOADING",
+                                "value": "UPLOADING"
+                            },
+                            {
+                                "name": "SYNCED",
+                                "value": "SYNCED"
+                            },
+                            {
+                                "name": "FAILED",
+                                "value": "FAILED"
+                            }
+                        ]
+                    },
+                    "GoogleDriveProvider": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "GOOGLE",
+                                "value": "GOOGLE"
+                            }
+                        ]
+                    },
+                    "Role": {
+                        "codecId": "pg/text@1",
+                        "members": [
+                            {
+                                "name": "USER",
+                                "value": "USER"
+                            },
+                            {
+                                "name": "ADMIN",
+                                "value": "ADMIN"
+                            }
+                        ]
+                    }
+                },
+                "models": {
+                    "AdminGoogleDriveConnection": {
+                        "fields": {
+                            "accessTokenExpiresAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "adminId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "connectedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "disconnectedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "encryptedRefreshToken": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleAccountId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleEmail": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "provider": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "GoogleDriveProvider",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "scopes": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "status": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DriveConnectionStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "syncRootFolderId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "updatedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "admin": {
+                                "cardinality": "N:1",
+                                "nullable": false,
+                                "on": {
+                                    "localFields": [
+                                        "adminId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "User",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "accessTokenExpiresAt": {
+                                    "column": "accessTokenExpiresAt"
+                                },
+                                "adminId": {
+                                    "column": "adminId"
+                                },
+                                "connectedAt": {
+                                    "column": "connectedAt"
+                                },
+                                "disconnectedAt": {
+                                    "column": "disconnectedAt"
+                                },
+                                "encryptedRefreshToken": {
+                                    "column": "encryptedRefreshToken"
+                                },
+                                "googleAccountId": {
+                                    "column": "googleAccountId"
+                                },
+                                "googleEmail": {
+                                    "column": "googleEmail"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "provider": {
+                                    "column": "provider"
+                                },
+                                "scopes": {
+                                    "column": "scopes"
+                                },
+                                "status": {
+                                    "column": "status"
+                                },
+                                "syncRootFolderId": {
+                                    "column": "syncRootFolderId"
+                                },
+                                "updatedAt": {
+                                    "column": "updatedAt"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "AdminGoogleDriveConnection"
+                        }
+                    },
+                    "AdminGoogleLoginState": {
+                        "fields": {
+                            "adminId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "channel": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "AdminLoginChannel",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "completionCodeHash": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "completionConsumedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "completionConsumedBy": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "completionExpiresAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "consumedBy": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "expiresAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "admin": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "adminId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "User",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "adminId": {
+                                    "column": "adminId"
+                                },
+                                "channel": {
+                                    "column": "channel"
+                                },
+                                "completionCodeHash": {
+                                    "column": "completionCodeHash"
+                                },
+                                "completionConsumedAt": {
+                                    "column": "completionConsumedAt"
+                                },
+                                "completionConsumedBy": {
+                                    "column": "completionConsumedBy"
+                                },
+                                "completionExpiresAt": {
+                                    "column": "completionExpiresAt"
+                                },
+                                "consumedBy": {
+                                    "column": "consumedBy"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "expiresAt": {
+                                    "column": "expiresAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "AdminGoogleLoginState"
+                        }
+                    },
+                    "AdminGoogleOAuthState": {
+                        "fields": {
+                            "adminSessionId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "consumedBy": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "expiresAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "adminSession": {
+                                "cardinality": "N:1",
+                                "nullable": false,
+                                "on": {
+                                    "localFields": [
+                                        "adminSessionId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AdminSession",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "adminSessionId": {
+                                    "column": "adminSessionId"
+                                },
+                                "consumedBy": {
+                                    "column": "consumedBy"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "expiresAt": {
+                                    "column": "expiresAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "AdminGoogleOAuthState"
+                        }
+                    },
+                    "AdminLog": {
+                        "fields": {
+                            "action": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "adminId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "resourceId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "resourceType": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "admin": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "adminId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "User",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "action": {
+                                    "column": "action"
+                                },
+                                "adminId": {
+                                    "column": "adminId"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "resourceId": {
+                                    "column": "resourceId"
+                                },
+                                "resourceType": {
+                                    "column": "resourceType"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "AdminLog"
+                        }
+                    },
+                    "AdminSession": {
+                        "fields": {
+                            "adminId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "revokedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "admin": {
+                                "cardinality": "N:1",
+                                "nullable": false,
+                                "on": {
+                                    "localFields": [
+                                        "adminId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "User",
+                                    "namespace": "public"
+                                }
+                            },
+                            "googleOAuthStates": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "adminSessionId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AdminGoogleOAuthState",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "adminId": {
+                                    "column": "adminId"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "revokedAt": {
+                                    "column": "revokedAt"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "AdminSession"
+                        }
+                    },
+                    "AnonymousSession": {
+                        "fields": {
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "expiresAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "revokedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "tokenHash": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "documents": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "ownerSessionId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Document",
+                                    "namespace": "public"
+                                }
+                            },
+                            "folders": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "ownerSessionId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Folder",
+                                    "namespace": "public"
+                                }
+                            },
+                            "googleDriveConnection": {
+                                "cardinality": "1:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "anonymousSessionId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "GoogleDriveConnection",
+                                    "namespace": "public"
+                                }
+                            },
+                            "googleOAuthStates": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "anonymousSessionId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "GoogleOAuthState",
+                                    "namespace": "public"
+                                }
+                            },
+                            "notifications": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "anonymousSessionId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Notification",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "expiresAt": {
+                                    "column": "expiresAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "revokedAt": {
+                                    "column": "revokedAt"
+                                },
+                                "tokenHash": {
+                                    "column": "tokenHash"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "AnonymousSession"
+                        }
+                    },
+                    "Document": {
+                        "fields": {
+                            "adminDriveSyncStatus": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DriveSyncStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "adminGoogleDriveFileId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "adminGoogleDriveFolderId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "aiSummary": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "analysisStartedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "analysisStatus": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DocumentAnalysisStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "driveSyncStatus": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DriveSyncStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "extractedText": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "fileSize": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/int4@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "fileType": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "folderId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleDriveFileId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleDriveFolderId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "mimeType": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "name": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "ownerSessionId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "pageCount": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/int4@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "source": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DocumentSource",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "status": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DocumentStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "storagePath": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "storageProvider": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DocumentStorageProvider",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "syncedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "updatedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "userId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "anonymousSession": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "ownerSessionId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AnonymousSession",
+                                    "namespace": "public"
+                                }
+                            },
+                            "folder": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "folderId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Folder",
+                                    "namespace": "public"
+                                }
+                            },
+                            "user": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "userId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "User",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "adminDriveSyncStatus": {
+                                    "column": "adminDriveSyncStatus"
+                                },
+                                "adminGoogleDriveFileId": {
+                                    "column": "adminGoogleDriveFileId"
+                                },
+                                "adminGoogleDriveFolderId": {
+                                    "column": "adminGoogleDriveFolderId"
+                                },
+                                "aiSummary": {
+                                    "column": "aiSummary"
+                                },
+                                "analysisStartedAt": {
+                                    "column": "analysisStartedAt"
+                                },
+                                "analysisStatus": {
+                                    "column": "analysisStatus"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "driveSyncStatus": {
+                                    "column": "driveSyncStatus"
+                                },
+                                "extractedText": {
+                                    "column": "extractedText"
+                                },
+                                "fileSize": {
+                                    "column": "fileSize"
+                                },
+                                "fileType": {
+                                    "column": "fileType"
+                                },
+                                "folderId": {
+                                    "column": "folderId"
+                                },
+                                "googleDriveFileId": {
+                                    "column": "googleDriveFileId"
+                                },
+                                "googleDriveFolderId": {
+                                    "column": "googleDriveFolderId"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "mimeType": {
+                                    "column": "mimeType"
+                                },
+                                "name": {
+                                    "column": "name"
+                                },
+                                "ownerSessionId": {
+                                    "column": "ownerSessionId"
+                                },
+                                "pageCount": {
+                                    "column": "pageCount"
+                                },
+                                "source": {
+                                    "column": "source"
+                                },
+                                "status": {
+                                    "column": "status"
+                                },
+                                "storagePath": {
+                                    "column": "storagePath"
+                                },
+                                "storageProvider": {
+                                    "column": "storageProvider"
+                                },
+                                "syncedAt": {
+                                    "column": "syncedAt"
+                                },
+                                "updatedAt": {
+                                    "column": "updatedAt"
+                                },
+                                "userId": {
+                                    "column": "userId"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "Document"
+                        }
+                    },
+                    "Folder": {
+                        "fields": {
+                            "adminDriveSyncStatus": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DriveSyncStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "adminGoogleDriveFolderId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleDriveFolderId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "name": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "ownerSessionId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "updatedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "userId": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "anonymousSession": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "ownerSessionId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AnonymousSession",
+                                    "namespace": "public"
+                                }
+                            },
+                            "documents": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "folderId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Document",
+                                    "namespace": "public"
+                                }
+                            },
+                            "user": {
+                                "cardinality": "N:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "userId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "User",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "adminDriveSyncStatus": {
+                                    "column": "adminDriveSyncStatus"
+                                },
+                                "adminGoogleDriveFolderId": {
+                                    "column": "adminGoogleDriveFolderId"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "googleDriveFolderId": {
+                                    "column": "googleDriveFolderId"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "name": {
+                                    "column": "name"
+                                },
+                                "ownerSessionId": {
+                                    "column": "ownerSessionId"
+                                },
+                                "updatedAt": {
+                                    "column": "updatedAt"
+                                },
+                                "userId": {
+                                    "column": "userId"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "Folder"
+                        }
+                    },
+                    "GoogleDriveConnection": {
+                        "fields": {
+                            "accessTokenExpiresAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "anonymousSessionId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "connectedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "disconnectedAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "encryptedRefreshToken": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleAccountId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "googleEmail": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "provider": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "GoogleDriveProvider",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "scopes": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "status": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "DriveConnectionStatus",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "updatedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "anonymousSession": {
+                                "cardinality": "N:1",
+                                "nullable": false,
+                                "on": {
+                                    "localFields": [
+                                        "anonymousSessionId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AnonymousSession",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "accessTokenExpiresAt": {
+                                    "column": "accessTokenExpiresAt"
+                                },
+                                "anonymousSessionId": {
+                                    "column": "anonymousSessionId"
+                                },
+                                "connectedAt": {
+                                    "column": "connectedAt"
+                                },
+                                "disconnectedAt": {
+                                    "column": "disconnectedAt"
+                                },
+                                "encryptedRefreshToken": {
+                                    "column": "encryptedRefreshToken"
+                                },
+                                "googleAccountId": {
+                                    "column": "googleAccountId"
+                                },
+                                "googleEmail": {
+                                    "column": "googleEmail"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "provider": {
+                                    "column": "provider"
+                                },
+                                "scopes": {
+                                    "column": "scopes"
+                                },
+                                "status": {
+                                    "column": "status"
+                                },
+                                "updatedAt": {
+                                    "column": "updatedAt"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "GoogleDriveConnection"
+                        }
+                    },
+                    "GoogleOAuthState": {
+                        "fields": {
+                            "anonymousSessionId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "consumedBy": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "expiresAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "anonymousSession": {
+                                "cardinality": "N:1",
+                                "nullable": false,
+                                "on": {
+                                    "localFields": [
+                                        "anonymousSessionId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AnonymousSession",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "anonymousSessionId": {
+                                    "column": "anonymousSessionId"
+                                },
+                                "consumedBy": {
+                                    "column": "consumedBy"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "expiresAt": {
+                                    "column": "expiresAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "GoogleOAuthState"
+                        }
+                    },
+                    "Notification": {
+                        "fields": {
+                            "anonymousSessionId": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "kind": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "message": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "readAt": {
+                                "nullable": true,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "title": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "anonymousSession": {
+                                "cardinality": "N:1",
+                                "nullable": false,
+                                "on": {
+                                    "localFields": [
+                                        "anonymousSessionId"
+                                    ],
+                                    "targetFields": [
+                                        "id"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AnonymousSession",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "anonymousSessionId": {
+                                    "column": "anonymousSessionId"
+                                },
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "kind": {
+                                    "column": "kind"
+                                },
+                                "message": {
+                                    "column": "message"
+                                },
+                                "readAt": {
+                                    "column": "readAt"
+                                },
+                                "title": {
+                                    "column": "title"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "Notification"
+                        }
+                    },
+                    "User": {
+                        "fields": {
+                            "createdAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "email": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "id": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "isActive": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/bool@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "name": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "passwordHash": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                }
+                            },
+                            "role": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/text@1",
+                                    "kind": "scalar"
+                                },
+                                "valueSet": {
+                                    "entityKind": "enum",
+                                    "entityName": "Role",
+                                    "namespaceId": "public",
+                                    "plane": "domain"
+                                }
+                            },
+                            "updatedAt": {
+                                "nullable": false,
+                                "type": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "kind": "scalar"
+                                }
+                            }
+                        },
+                        "relations": {
+                            "adminGoogleDriveConnection": {
+                                "cardinality": "1:1",
+                                "nullable": true,
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "adminId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AdminGoogleDriveConnection",
+                                    "namespace": "public"
+                                }
+                            },
+                            "adminLogs": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "adminId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AdminLog",
+                                    "namespace": "public"
+                                }
+                            },
+                            "adminSessions": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "adminId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AdminSession",
+                                    "namespace": "public"
+                                }
+                            },
+                            "documents": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "userId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Document",
+                                    "namespace": "public"
+                                }
+                            },
+                            "folders": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "userId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "Folder",
+                                    "namespace": "public"
+                                }
+                            },
+                            "googleLoginStates": {
+                                "cardinality": "1:N",
+                                "on": {
+                                    "localFields": [
+                                        "id"
+                                    ],
+                                    "targetFields": [
+                                        "adminId"
+                                    ]
+                                },
+                                "to": {
+                                    "model": "AdminGoogleLoginState",
+                                    "namespace": "public"
+                                }
+                            }
+                        },
+                        "storage": {
+                            "fields": {
+                                "createdAt": {
+                                    "column": "createdAt"
+                                },
+                                "email": {
+                                    "column": "email"
+                                },
+                                "id": {
+                                    "column": "id"
+                                },
+                                "isActive": {
+                                    "column": "isActive"
+                                },
+                                "name": {
+                                    "column": "name"
+                                },
+                                "passwordHash": {
+                                    "column": "passwordHash"
+                                },
+                                "role": {
+                                    "column": "role"
+                                },
+                                "updatedAt": {
+                                    "column": "updatedAt"
+                                }
+                            },
+                            "namespaceId": "public",
+                            "table": "User"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "storage": {
+        "namespaces": {
+            "public": {
+                "entries": {
+                    "table": {
+                        "AdminGoogleDriveConnection": {
+                            "checks": [
+                                {
+                                    "expression": "\"provider\" IN ('GOOGLE')",
+                                    "name": "AdminGoogleDriveConnection_provider_check_ced8a431",
+                                    "prefix": "AdminGoogleDriveConnection_provider_check"
+                                },
+                                {
+                                    "expression": "\"status\" IN ('CONNECTED', 'REAUTH_REQUIRED', 'DISCONNECTED')",
+                                    "name": "AdminGoogleDriveConnection_status_check_38c9ba5e",
+                                    "prefix": "AdminGoogleDriveConnection_status_check"
+                                }
+                            ],
+                            "columns": {
+                                "accessTokenExpiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "adminId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "connectedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "disconnectedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "encryptedRefreshToken": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "googleAccountId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "googleEmail": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "provider": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "GOOGLE"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "GoogleDriveProvider",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "scopes": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "status": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "CONNECTED"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DriveConnectionStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "syncRootFolderId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "updatedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "adminId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AdminGoogleDriveConnection"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "User"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "status"
+                                    ],
+                                    "name": "AdminGoogleDriveConnection_status_idx_e98638ab",
+                                    "prefix": "AdminGoogleDriveConnection_status_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": [
+                                {
+                                    "columns": [
+                                        "adminId"
+                                    ]
+                                }
+                            ]
+                        },
+                        "AdminGoogleLoginState": {
+                            "checks": [
+                                {
+                                    "expression": "\"channel\" IN ('WEB', 'MOBILE')",
+                                    "name": "AdminGoogleLoginState_channel_check_5e52a439",
+                                    "prefix": "AdminGoogleLoginState_channel_check"
+                                }
+                            ],
+                            "columns": {
+                                "adminId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "channel": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "AdminLoginChannel",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "completionCodeHash": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "completionConsumedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "completionConsumedBy": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "completionExpiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "consumedBy": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "expiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "adminId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AdminGoogleLoginState"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "User"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "adminId"
+                                    ],
+                                    "name": "AdminGoogleLoginState_adminId_idx_530179db",
+                                    "prefix": "AdminGoogleLoginState_adminId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "expiresAt"
+                                    ],
+                                    "name": "AdminGoogleLoginState_expiresAt_idx_6b6b8c10",
+                                    "prefix": "AdminGoogleLoginState_expiresAt_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": [
+                                {
+                                    "columns": [
+                                        "completionCodeHash"
+                                    ]
+                                }
+                            ]
+                        },
+                        "AdminGoogleOAuthState": {
+                            "columns": {
+                                "adminSessionId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "consumedBy": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "expiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "adminSessionId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AdminGoogleOAuthState"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AdminSession"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "adminSessionId"
+                                    ],
+                                    "name": "AdminGoogleOAuthState_adminSessionId_idx_6d1dc31d",
+                                    "prefix": "AdminGoogleOAuthState_adminSessionId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "expiresAt"
+                                    ],
+                                    "name": "AdminGoogleOAuthState_expiresAt_idx_6b6b8c10",
+                                    "prefix": "AdminGoogleOAuthState_expiresAt_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "AdminLog": {
+                            "columns": {
+                                "action": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "adminId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "resourceId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "resourceType": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "setNull",
+                                    "source": {
+                                        "columns": [
+                                            "adminId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AdminLog"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "User"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "adminId"
+                                    ],
+                                    "name": "AdminLog_adminId_idx_530179db",
+                                    "prefix": "AdminLog_adminId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "createdAt"
+                                    ],
+                                    "name": "AdminLog_createdAt_idx_9575dbd7",
+                                    "prefix": "AdminLog_createdAt_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "AdminSession": {
+                            "columns": {
+                                "adminId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "revokedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "adminId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AdminSession"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "User"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "adminId"
+                                    ],
+                                    "name": "AdminSession_adminId_idx_530179db",
+                                    "prefix": "AdminSession_adminId_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "AnonymousSession": {
+                            "columns": {
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "expiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "revokedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "tokenHash": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [],
+                            "indexes": [],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": [
+                                {
+                                    "columns": [
+                                        "tokenHash"
+                                    ]
+                                }
+                            ]
+                        },
+                        "Document": {
+                            "checks": [
+                                {
+                                    "expression": "\"adminDriveSyncStatus\" IN ('LOCAL_ONLY', 'UPLOADING', 'SYNCED', 'FAILED')",
+                                    "name": "Document_adminDriveSyncStatus_check_8e602905",
+                                    "prefix": "Document_adminDriveSyncStatus_check"
+                                },
+                                {
+                                    "expression": "\"analysisStatus\" IN ('NOT_REQUESTED', 'PENDING', 'PROCESSING', 'COMPLETE', 'FAILED')",
+                                    "name": "Document_analysisStatus_check_3b6571e7",
+                                    "prefix": "Document_analysisStatus_check"
+                                },
+                                {
+                                    "expression": "\"driveSyncStatus\" IN ('LOCAL_ONLY', 'UPLOADING', 'SYNCED', 'FAILED')",
+                                    "name": "Document_driveSyncStatus_check_29804bb2",
+                                    "prefix": "Document_driveSyncStatus_check"
+                                },
+                                {
+                                    "expression": "\"source\" IN ('UPLOAD', 'SCAN', 'DRIVE')",
+                                    "name": "Document_source_check_dd785272",
+                                    "prefix": "Document_source_check"
+                                },
+                                {
+                                    "expression": "\"status\" IN ('UPLOADING', 'READY', 'FAILED', 'DELETED')",
+                                    "name": "Document_status_check_aa599da8",
+                                    "prefix": "Document_status_check"
+                                },
+                                {
+                                    "expression": "\"storageProvider\" IN ('LOCAL', 'GOOGLE_DRIVE')",
+                                    "name": "Document_storageProvider_check_96ae4852",
+                                    "prefix": "Document_storageProvider_check"
+                                }
+                            ],
+                            "columns": {
+                                "adminDriveSyncStatus": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "LOCAL_ONLY"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DriveSyncStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "adminGoogleDriveFileId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "adminGoogleDriveFolderId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "aiSummary": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "analysisStartedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "analysisStatus": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "NOT_REQUESTED"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DocumentAnalysisStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "driveSyncStatus": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "LOCAL_ONLY"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DriveSyncStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "extractedText": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "fileSize": {
+                                    "codecId": "pg/int4@1",
+                                    "nativeType": "int4",
+                                    "nullable": true
+                                },
+                                "fileType": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "folderId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "googleDriveFileId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "googleDriveFolderId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "mimeType": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "name": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "ownerSessionId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "pageCount": {
+                                    "codecId": "pg/int4@1",
+                                    "nativeType": "int4",
+                                    "nullable": true
+                                },
+                                "source": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "UPLOAD"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DocumentSource",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "status": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "READY"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DocumentStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "storagePath": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "storageProvider": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "LOCAL"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DocumentStorageProvider",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "syncedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "updatedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "userId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "userId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Document"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "User"
+                                    }
+                                },
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "ownerSessionId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Document"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AnonymousSession"
+                                    }
+                                },
+                                {
+                                    "onDelete": "setNull",
+                                    "source": {
+                                        "columns": [
+                                            "folderId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Document"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Folder"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "folderId"
+                                    ],
+                                    "name": "Document_folderId_idx_5985e562",
+                                    "prefix": "Document_folderId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "ownerSessionId"
+                                    ],
+                                    "name": "Document_ownerSessionId_idx_e3f7801a",
+                                    "prefix": "Document_ownerSessionId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "userId"
+                                    ],
+                                    "name": "Document_userId_idx_a489d58a",
+                                    "prefix": "Document_userId_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "Folder": {
+                            "checks": [
+                                {
+                                    "expression": "\"adminDriveSyncStatus\" IN ('LOCAL_ONLY', 'UPLOADING', 'SYNCED', 'FAILED')",
+                                    "name": "Folder_adminDriveSyncStatus_check_8e602905",
+                                    "prefix": "Folder_adminDriveSyncStatus_check"
+                                }
+                            ],
+                            "columns": {
+                                "adminDriveSyncStatus": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "LOCAL_ONLY"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DriveSyncStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "adminGoogleDriveFolderId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "googleDriveFolderId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "name": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "ownerSessionId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "updatedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "userId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "userId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Folder"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "User"
+                                    }
+                                },
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "ownerSessionId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Folder"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AnonymousSession"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "ownerSessionId"
+                                    ],
+                                    "name": "Folder_ownerSessionId_idx_e3f7801a",
+                                    "prefix": "Folder_ownerSessionId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "userId"
+                                    ],
+                                    "name": "Folder_userId_idx_a489d58a",
+                                    "prefix": "Folder_userId_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "GoogleDriveConnection": {
+                            "checks": [
+                                {
+                                    "expression": "\"provider\" IN ('GOOGLE')",
+                                    "name": "GoogleDriveConnection_provider_check_ced8a431",
+                                    "prefix": "GoogleDriveConnection_provider_check"
+                                },
+                                {
+                                    "expression": "\"status\" IN ('CONNECTED', 'REAUTH_REQUIRED', 'DISCONNECTED')",
+                                    "name": "GoogleDriveConnection_status_check_38c9ba5e",
+                                    "prefix": "GoogleDriveConnection_status_check"
+                                }
+                            ],
+                            "columns": {
+                                "accessTokenExpiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "anonymousSessionId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "connectedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "disconnectedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "encryptedRefreshToken": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "googleAccountId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "googleEmail": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "provider": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "GOOGLE"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "GoogleDriveProvider",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "scopes": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "status": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "CONNECTED"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "DriveConnectionStatus",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "updatedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "anonymousSessionId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "GoogleDriveConnection"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AnonymousSession"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "status"
+                                    ],
+                                    "name": "GoogleDriveConnection_status_idx_e98638ab",
+                                    "prefix": "GoogleDriveConnection_status_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": [
+                                {
+                                    "columns": [
+                                        "anonymousSessionId"
+                                    ]
+                                }
+                            ]
+                        },
+                        "GoogleOAuthState": {
+                            "columns": {
+                                "anonymousSessionId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "consumedBy": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "expiresAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "anonymousSessionId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "GoogleOAuthState"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AnonymousSession"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "anonymousSessionId"
+                                    ],
+                                    "name": "GoogleOAuthState_anonymousSessionId_idx_229296d5",
+                                    "prefix": "GoogleOAuthState_anonymousSessionId_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "expiresAt"
+                                    ],
+                                    "name": "GoogleOAuthState_expiresAt_idx_6b6b8c10",
+                                    "prefix": "GoogleOAuthState_expiresAt_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "Notification": {
+                            "columns": {
+                                "anonymousSessionId": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "kind": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "message": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "readAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": true
+                                },
+                                "title": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [
+                                {
+                                    "onDelete": "cascade",
+                                    "source": {
+                                        "columns": [
+                                            "anonymousSessionId"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "Notification"
+                                    },
+                                    "target": {
+                                        "columns": [
+                                            "id"
+                                        ],
+                                        "namespaceId": "public",
+                                        "tableName": "AnonymousSession"
+                                    }
+                                }
+                            ],
+                            "indexes": [
+                                {
+                                    "columns": [
+                                        "anonymousSessionId",
+                                        "createdAt"
+                                    ],
+                                    "name": "Notification_anonymousSessionId_createdAt_idx_bb324965",
+                                    "prefix": "Notification_anonymousSessionId_createdAt_idx",
+                                    "unique": false
+                                },
+                                {
+                                    "columns": [
+                                        "anonymousSessionId"
+                                    ],
+                                    "name": "Notification_anonymousSessionId_idx_229296d5",
+                                    "prefix": "Notification_anonymousSessionId_idx",
+                                    "unique": false
+                                }
+                            ],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": []
+                        },
+                        "User": {
+                            "checks": [
+                                {
+                                    "expression": "\"role\" IN ('USER', 'ADMIN')",
+                                    "name": "User_role_check_1954e8c0",
+                                    "prefix": "User_role_check"
+                                }
+                            ],
+                            "columns": {
+                                "createdAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                },
+                                "email": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "id": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "isActive": {
+                                    "codecId": "pg/bool@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": true
+                                    },
+                                    "nativeType": "bool",
+                                    "nullable": false
+                                },
+                                "name": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "passwordHash": {
+                                    "codecId": "pg/text@1",
+                                    "nativeType": "text",
+                                    "nullable": false
+                                },
+                                "role": {
+                                    "codecId": "pg/text@1",
+                                    "default": {
+                                        "kind": "literal",
+                                        "value": "USER"
+                                    },
+                                    "nativeType": "text",
+                                    "nullable": false,
+                                    "valueSet": {
+                                        "entityKind": "valueSet",
+                                        "entityName": "Role",
+                                        "namespaceId": "public",
+                                        "plane": "storage"
+                                    }
+                                },
+                                "updatedAt": {
+                                    "codecId": "pg/timestamptz-temporal@1",
+                                    "nativeType": "timestamptz",
+                                    "nullable": false
+                                }
+                            },
+                            "foreignKeys": [],
+                            "indexes": [],
+                            "primaryKey": {
+                                "columns": [
+                                    "id"
+                                ]
+                            },
+                            "uniques": [
+                                {
+                                    "columns": [
+                                        "email"
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "valueSet": {
+                        "AdminLoginChannel": {
+                            "kind": "valueSet",
+                            "values": [
+                                "WEB",
+                                "MOBILE"
+                            ]
+                        },
+                        "DocumentAnalysisStatus": {
+                            "kind": "valueSet",
+                            "values": [
+                                "NOT_REQUESTED",
+                                "PENDING",
+                                "PROCESSING",
+                                "COMPLETE",
+                                "FAILED"
+                            ]
+                        },
+                        "DocumentSource": {
+                            "kind": "valueSet",
+                            "values": [
+                                "UPLOAD",
+                                "SCAN",
+                                "DRIVE"
+                            ]
+                        },
+                        "DocumentStatus": {
+                            "kind": "valueSet",
+                            "values": [
+                                "UPLOADING",
+                                "READY",
+                                "FAILED",
+                                "DELETED"
+                            ]
+                        },
+                        "DocumentStorageProvider": {
+                            "kind": "valueSet",
+                            "values": [
+                                "LOCAL",
+                                "GOOGLE_DRIVE"
+                            ]
+                        },
+                        "DriveConnectionStatus": {
+                            "kind": "valueSet",
+                            "values": [
+                                "CONNECTED",
+                                "REAUTH_REQUIRED",
+                                "DISCONNECTED"
+                            ]
+                        },
+                        "DriveSyncStatus": {
+                            "kind": "valueSet",
+                            "values": [
+                                "LOCAL_ONLY",
+                                "UPLOADING",
+                                "SYNCED",
+                                "FAILED"
+                            ]
+                        },
+                        "GoogleDriveProvider": {
+                            "kind": "valueSet",
+                            "values": [
+                                "GOOGLE"
+                            ]
+                        },
+                        "Role": {
+                            "kind": "valueSet",
+                            "values": [
+                                "USER",
+                                "ADMIN"
+                            ]
+                        }
+                    }
+                },
+                "id": "public",
+                "kind": "postgres-schema"
+            }
+        },
+        "storageHash": "e2544dd7cb4b6f1536e9be5dc53403c24d43c98e59f47cf134dd9d33357fa853"
+    },
+    "execution": {
+        "executionHash": "e449bf0e083b835a79840a6a3503a9159b613f47ac5b4186fe6139bf5c88b939",
+        "mutations": {
+            "defaults": [
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminGoogleDriveConnection",
+                        "field": "connectedAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminGoogleDriveConnection",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "onUpdate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminGoogleDriveConnection",
+                        "field": "updatedAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminGoogleLoginState",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminGoogleOAuthState",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminLog",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminLog",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AdminSession",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "AnonymousSession",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Document",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Document",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "onUpdate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Document",
+                        "field": "updatedAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Folder",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Folder",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "onUpdate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Folder",
+                        "field": "updatedAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "GoogleDriveConnection",
+                        "field": "connectedAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "GoogleDriveConnection",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "onUpdate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "GoogleDriveConnection",
+                        "field": "updatedAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "GoogleOAuthState",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Notification",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "Notification",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "User",
+                        "field": "createdAt",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "cuid2",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "User",
+                        "field": "id",
+                        "namespace": "public"
+                    }
+                },
+                {
+                    "onCreate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "onUpdate": {
+                        "id": "instantNow",
+                        "kind": "generator"
+                    },
+                    "ref": {
+                        "entry": "User",
+                        "field": "updatedAt",
+                        "namespace": "public"
+                    }
+                }
+            ]
+        }
+    },
+    "capabilities": {
+        "postgres": {
+            "distinctOn": true,
+            "jsonAgg": true,
+            "lateral": true,
+            "limit": true,
+            "orderBy": true,
+            "returning": true
+        },
+        "sql": {
+            "checkConstraint": true,
+            "defaultInInsert": true,
+            "enums": true,
+            "insertOnConflictSkip": true,
+            "insertOnConflictWithoutTarget": true,
+            "lateral": true,
+            "returning": true,
+            "scalarList": true
+        }
+    },
+    "extensions": {},
+    "meta": {},
+    "_generated": {
+        "warning": "⚠️  GENERATED FILE - DO NOT EDIT",
+        "message": "This file is automatically generated by \"prisma contract emit\".",
+        "regenerate": "To regenerate, run: prisma contract emit"
+    }
+}
