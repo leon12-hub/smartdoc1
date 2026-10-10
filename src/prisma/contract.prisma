@@ -1,0 +1,262 @@
+// use prisma-8
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DocumentStatus {
+  UPLOADING
+  READY
+  FAILED
+  DELETED
+}
+
+enum DocumentStorageProvider {
+  LOCAL
+  GOOGLE_DRIVE
+}
+
+enum DocumentSource {
+  UPLOAD
+  SCAN
+  DRIVE
+}
+
+enum DriveSyncStatus {
+  LOCAL_ONLY
+  UPLOADING
+  SYNCED
+  FAILED
+}
+
+enum DocumentAnalysisStatus {
+  NOT_REQUESTED
+  PENDING
+  PROCESSING
+  COMPLETE
+  FAILED
+}
+
+enum DriveConnectionStatus {
+  CONNECTED
+  REAUTH_REQUIRED
+  DISCONNECTED
+}
+
+enum GoogleDriveProvider {
+  GOOGLE
+}
+
+enum AdminLoginChannel {
+  WEB
+  MOBILE
+}
+
+model User {
+  id           String   @id @default(cuid(2))
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         Role     @default(USER)
+  isActive     Boolean  @default(true)
+  createdAt    temporal.createdAt()
+  updatedAt    temporal.updatedAt()
+
+  folders      Folder[]
+  documents    Document[]
+  adminLogs      AdminLog[]
+  adminSessions AdminSession[]
+  adminGoogleDriveConnection AdminGoogleDriveConnection?
+  googleLoginStates AdminGoogleLoginState[]
+}
+
+model Folder {
+  id                  String     @id @default(cuid(2))
+  name                String
+  googleDriveFolderId String?
+  adminGoogleDriveFolderId String?
+  adminDriveSyncStatus DriveSyncStatus @default(LOCAL_ONLY)
+  userId              String?
+  ownerSessionId      String?
+  createdAt           temporal.createdAt()
+  updatedAt           temporal.updatedAt()
+
+  user                User?      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonymousSession   AnonymousSession? @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+  documents           Document[]
+
+  @@index([ownerSessionId])
+}
+
+model Document {
+  id                String    @id @default(cuid(2))
+  name              String
+  fileType          String?
+  fileSize          Int?
+  mimeType          String?
+  pageCount         Int?
+  source            DocumentSource @default(UPLOAD)
+  storageProvider   DocumentStorageProvider @default(LOCAL)
+  status            DocumentStatus @default(READY)
+  googleDriveFileId String?
+  googleDriveFolderId String?
+  driveSyncStatus   DriveSyncStatus @default(LOCAL_ONLY)
+  adminGoogleDriveFileId String?
+  adminGoogleDriveFolderId String?
+  adminDriveSyncStatus DriveSyncStatus @default(LOCAL_ONLY)
+  syncedAt          DateTime?
+  analysisStatus    DocumentAnalysisStatus @default(NOT_REQUESTED)
+  analysisStartedAt DateTime?
+  extractedText     String?
+  aiSummary         String?
+  userId            String?
+  folderId          String?
+  storagePath       String?
+  ownerSessionId    String?
+  createdAt         temporal.createdAt()
+  updatedAt         temporal.updatedAt()
+
+  user              User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  anonymousSession  AnonymousSession? @relation(fields: [ownerSessionId], references: [id], onDelete: Cascade)
+  folder            Folder?   @relation(fields: [folderId], references: [id], onDelete: SetNull)
+
+  @@index([ownerSessionId])
+}
+
+model AnonymousSession {
+  id        String    @id
+  tokenHash String    @unique
+  createdAt temporal.createdAt()
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  folders   Folder[]
+  documents Document[]
+  googleDriveConnection GoogleDriveConnection?
+  googleOAuthStates GoogleOAuthState[]
+  notifications Notification[]
+}
+
+model Notification {
+  id                 String           @id @default(cuid(2))
+  anonymousSessionId String
+  kind               String
+  title              String
+  message            String
+  createdAt          temporal.createdAt()
+  readAt             DateTime?
+
+  anonymousSession   AnonymousSession @relation(fields: [anonymousSessionId], references: [id], onDelete: Cascade)
+
+  @@index([anonymousSessionId, createdAt])
+}
+
+model GoogleDriveConnection {
+  id                    String                 @id @default(cuid(2))
+  anonymousSessionId    String                 @unique
+  provider              GoogleDriveProvider     @default(GOOGLE)
+  googleAccountId       String
+  googleEmail           String?
+  encryptedRefreshToken String
+  scopes                String
+  accessTokenExpiresAt  DateTime?
+  status                DriveConnectionStatus   @default(CONNECTED)
+  connectedAt           temporal.createdAt()
+  updatedAt             temporal.updatedAt()
+  disconnectedAt        DateTime?
+
+  anonymousSession      AnonymousSession        @relation(fields: [anonymousSessionId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model GoogleOAuthState {
+  id                 String           @id
+  anonymousSessionId String
+  createdAt          temporal.createdAt()
+  expiresAt          DateTime
+  consumedBy         String?
+
+  anonymousSession   AnonymousSession @relation(fields: [anonymousSessionId], references: [id], onDelete: Cascade)
+
+  @@index([anonymousSessionId])
+  @@index([expiresAt])
+}
+
+model AdminLog {
+  id           String   @id @default(cuid(2))
+  action       String
+  resourceType String?
+  resourceId   String?
+  adminId      String?
+  createdAt    temporal.createdAt()
+
+  admin        User?    @relation(fields: [adminId], references: [id], onDelete: SetNull)
+
+  @@index([adminId])
+  @@index([createdAt])
+}
+
+model AdminSession {
+  id        String    @id
+  adminId   String
+  createdAt temporal.createdAt()
+  revokedAt DateTime?
+
+  admin     User      @relation(fields: [adminId], references: [id], onDelete: Cascade)
+  googleOAuthStates AdminGoogleOAuthState[]
+
+  @@index([adminId])
+}
+
+model AdminGoogleDriveConnection {
+  id                    String                 @id @default(cuid(2))
+  adminId               String                 @unique
+  provider              GoogleDriveProvider     @default(GOOGLE)
+  googleAccountId       String
+  googleEmail           String?
+  encryptedRefreshToken String
+  scopes                String
+  syncRootFolderId      String?
+  accessTokenExpiresAt  DateTime?
+  status                DriveConnectionStatus   @default(CONNECTED)
+  connectedAt           temporal.createdAt()
+  updatedAt             temporal.updatedAt()
+  disconnectedAt        DateTime?
+
+  admin                 User                   @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([status])
+}
+
+model AdminGoogleOAuthState {
+  id              String       @id
+  adminSessionId  String
+  createdAt       temporal.createdAt()
+  expiresAt       DateTime
+  consumedBy      String?
+
+  adminSession    AdminSession @relation(fields: [adminSessionId], references: [id], onDelete: Cascade)
+
+  @@index([adminSessionId])
+  @@index([expiresAt])
+}
+
+model AdminGoogleLoginState {
+  id                     String            @id
+  channel                AdminLoginChannel
+  createdAt              temporal.createdAt()
+  expiresAt              DateTime
+  consumedBy             String?
+  adminId                String?
+  completionCodeHash     String?           @unique
+  completionExpiresAt    DateTime?
+  completionConsumedAt   DateTime?
+  completionConsumedBy   String?
+
+  admin                  User?             @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([expiresAt])
+}
